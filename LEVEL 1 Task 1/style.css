@@ -16,6 +16,8 @@ header.hero {
   background: linear-gradient(to right, #111111, #b1b0b0);
   padding: 40px 20px;
   text-align: center;
+  
+  box-shadow: 1px 10px 900px rgb(255, 179, 179);
 }
 
 .navbar {
@@ -68,6 +70,7 @@ box-shadow: 5px 5px 13px rgb(63, 26, 26);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 50px;
+   justify-content: space-around;
   padding: 60px 20px;
   max-width: 1200px;
   margin: auto;
@@ -76,6 +79,15 @@ box-shadow: 5px 5px 13px rgb(63, 26, 26);
 .feature img {
   width: 60px;
   margin-bottom: 15px;
+   cursor: pointer;
+   animation: roundMove 5s linear infinite;
+  
+}
+.feature {
+  text-align: center;
+  flex: 1;
+  padding: 20px;
+  max-width: 300px;
 }
 
 .feature h3 {
@@ -105,8 +117,11 @@ box-shadow: 5px 5px 13px rgb(63, 26, 26);
 .benefit img {
   width: 50px;
   margin-bottom: 10px;
+  cursor: pointer;
+  position: relative; /* Required for animation */
+  animation: roundMove 5s linear infinite;
+  
 }
-
 .benefit h4 {
   margin-bottom: 10px;
 }
@@ -124,7 +139,12 @@ box-shadow: 5px 5px 13px rgb(63, 26, 26);
   border: none;
   box-shadow: 0px -5px 13px rgb(168, 167, 167);
   border-radius: 100px;
-  
+  cursor: pointer;
+
+  /* Add 3D transform styles */
+  transition: transform 5s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 .stats {
@@ -132,4 +152,25 @@ box-shadow: 5px 5px 13px rgb(63, 26, 26);
   justify-content: center;
   gap: 40px;
   font-size: 1.2rem;
+}
+
+.global .map:hover {
+  transform: rotateY(50deg);
+}
+@keyframes roundMove {
+  0% {
+    transform: translate(10, 10);
+  }
+  25% {
+    transform: translate(10px, 10px);
+  }
+  50% {
+    transform: translate(9px, 10px);
+  }
+  75% {
+    transform: translate(-20px, 20px);
+  }
+  100% {
+    transform: translate(10, 10);
+  }
 }
