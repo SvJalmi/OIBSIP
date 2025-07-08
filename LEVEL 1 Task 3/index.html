@@ -6,21 +6,21 @@
   <title>Temperature Converter</title>
   <style>
     :root {
-      --bg-color: #d1dfd3;
+      --bg-color: #0a0a0a;
       --text-color: #f92f7c;
-      --card-color: #d7e2be;
-      --accent-color: hsl(61, 97%, 24%);
+      --card-color: #0b0f02;
+      --accent-color: #57464c;
     }
 
     [data-theme="dark"] {
-      --bg-color: #1e1e2f;
-      --text-color: #f0f0f0;
-      --card-color: #2c2c3e;
-      --accent-color: #66d9ef;
+      --bg-color: honeydew;
+      --text-color: #070404;
+      --card-color: rgb(241, 246, 241);
+      --accent-color: #a9a9a9;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
+ 
       background: var(--bg-color);
       color: var(--text-color);
       margin: 0;
@@ -35,6 +35,8 @@
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 2px 2px 80px ;
+      border: none solid honeydew;
     }
 
     h2 {
@@ -45,11 +47,14 @@
     input, select, button {
       width: 100%;
       padding: 12px;
-      margin: 10px 0;
+      margin: 25px 6px;
       font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      border: 1px solid #f6f4f4;
+      border-radius:50%;
       box-sizing: border-box;
+      box-shadow: 5px 6px  rgb(12, 12, 12);
+       transition: transform 2s ease-in-out;
+
     }
 
     button {
@@ -57,11 +62,11 @@
       color: white;
       border: none;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 1s;
     }
 
     button:hover {
-      background: #005fa3;
+      background: #3f3f3f;
     }
 
     .result, .error {
@@ -71,7 +76,7 @@
     }
 
     .error {
-      color: red;
+      color: rgb(22, 16, 16);
     }
 
     .history {
@@ -90,7 +95,7 @@
     }
 
     .history li {
-      background: #e6f7ff;
+      background:honeydew;
       margin-bottom: 5px;
       padding: 8px;
       border-radius: 5px;
