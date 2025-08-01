@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Temperature Converter</title>
+  <style>
+    :root {
+      --bg-color: #0a0a0a;
+      --text-color: #f92f7c;
+      --card-color: #0b0f02;
+      --accent-color: #57464c;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: honeydew;
+      --text-color: #070404;
+      --card-color: rgb(241, 246, 241);
+      --accent-color: #a9a9a9;
+    }
+
+    body {
+ 
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: var(--card-color);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 2px 2px 80px ;
+      border: none solid honeydew;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 25px 6px;
+      font-size: 16px;
+      border: 1px solid #f6f4f4;
+      border-radius:50%;
+      box-sizing: border-box;
+      box-shadow: 5px 6px  rgb(12, 12, 12);
+       transition: transform 2s ease-in-out;
+
+    }
+
+    button {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 1s;
+    }
+
+    button:hover {
+      background: #3f3f3f;
+    }
+
+    .result, .error {
+      margin-top: 15px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .error {
+      color: rgb(22, 16, 16);
+    }
+
+    .history {
+      margin-top: 25px;
+    }
+
+    .history h3 {
+      margin-bottom: 10px;
+    }
+
+    .history ul {
+      list-style: none;
+      padding: 0;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .history li {
+      background:honeydew;
+      margin-bottom: 5px;
+      padding: 8px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .theme-toggle {
+      float: right;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: -10px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <div class="container" role="main">
+    <div class="theme-toggle" onclick="toggleTheme()">🌓 Toggle Theme</div>
+    <h2>🌡️ Advanced Temperature Converter</h2>
+    <label for="tempInput">Enter Temperature:</label>
+    <input type="number" id="tempInput" aria-label="Temperature input" placeholder="e.g. 100" />
+
+    <label for="fromUnit">From:</label>
+    <select id="fromUnit" aria-label="From unit">
+      <option value="C">Celsius (°C)</option>
+      <option value="F">Fahrenheit (°F)</option>
+      <option value="K">Kelvin (K)</option>
+    </select>
+
+    <label for="toUnit">To:</label>
+    <select id="toUnit" aria-label="To unit">
+      <option value="F">Fahrenheit (°F)</option>
+      <option value="C">Celsius (°C)</option>
+      <option value="K">Kelvin (K)</option>
+    </select>
+
+    <button onclick="convertTemp()">Convert</button>
+
+    <div class="result" id="result" aria-live="polite"></div>
+    <div class="error" id="error"></div>
+
+    <div class="history">
+      <h3>📜 Conversion History</h3>
+      <ul id="historyList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const resultDiv = document.getElementById("result");
+    const errorDiv = document.getElementById("error");
+    const historyList = document.getElementById("historyList");
+
+    function convertTemp() {
+      const temp = parseFloat(document.getElementById("tempInput").value);
+      const from = document.getElementById("fromUnit").value;
+      const to = document.getElementById("toUnit").value;
+
+      resultDiv.textContent = "";
+      errorDiv.textContent = "";
+
+      if (isNaN(temp)) {
+        errorDiv.textContent = "❌ Please enter a valid number.";
+        return;
+      }
+
+      if (from === to) {
+        errorDiv.textContent = "⚠️ Please select different units to convert.";
+        return;
+      }
+
+      let tempInC;
+      if (from === "C") tempInC = temp;
+      else if (from === "F") tempInC = (temp - 32) * 5 / 9;
+      else if (from === "K") tempInC = temp - 273.15;
+
+      let converted;
+      if (to === "C") converted = tempInC;
+      else if (to === "F") converted = (tempInC * 9 / 5) + 32;
+      else if (to === "K") converted = tempInC + 273.15;
+
+      const output = `${converted.toFixed(2)} °${to}`;
+      resultDiv.textContent = `✅ Result: ${output}`;
+
+      const timestamp = new Date().toLocaleString();
+      const historyItem = document.createElement("li");
+      historyItem.textContent = `${temp}°${from} → ${output} at ${timestamp}`;
+      historyList.prepend(historyItem);
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute("data-theme");
+      body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+    }
+  </script>
+</body>
+</html>

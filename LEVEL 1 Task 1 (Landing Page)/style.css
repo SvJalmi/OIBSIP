@@ -1,0 +1,178 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: san;
+ 
+  line-height: 1.6;
+  color: #cecece;
+  background: #000000;
+}
+
+header.hero {
+  background: linear-gradient(to right, #111111, #b1b0b0);
+  padding: 40px 20px;
+  text-align: center;
+  
+  box-shadow: 1px 10px 900px rgb(255, 179, 179);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.logo {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.hero-content {
+  margin-top: 60px;
+  font-family: san;
+}
+
+.hero-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #000000;
+    margin-bottom: 20px;
+    font-family: san bold;
+    font-size: 20px;
+  font-weight: 700;
+}
+
+.btn {
+  background-color: #270505;
+  color: #c9b1b1;
+  padding: 10px 30px;
+  border: none;
+ border-radius: 100px 100px / 20px;
+  margin-top: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+box-shadow: 5px 5px 13px rgb(63, 26, 26);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 50px;
+   justify-content: space-around;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.feature img {
+  width: 60px;
+  margin-bottom: 15px;
+   cursor: pointer;
+   animation: roundMove 5s linear infinite;
+  
+}
+.feature {
+  text-align: center;
+  flex: 1;
+  padding: 20px;
+  max-width: 300px;
+}
+
+.feature h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  color: #684e4e;
+}
+
+.benefits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background: #2901019e;
+  padding: 40px 20px;
+}
+
+.benefit {
+  text-align: center;
+  flex: 1;
+  padding: 20px;
+  max-width: 300px;
+}
+
+.benefit img {
+  width: 50px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  position: relative; /* Required for animation */
+  animation: roundMove 5s linear infinite;
+  
+}
+.benefit h4 {
+  margin-bottom: 10px;
+}
+
+.global {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.global .map {
+  max-width: 90%;
+  height: 200px;
+  width: 500px;
+  margin: 20px 0;
+  border: none;
+  box-shadow: 0px -5px 13px rgb(168, 167, 167);
+  border-radius: 100px;
+  cursor: pointer;
+
+  /* Add 3D transform styles */
+  transition: transform 5s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-size: 1.2rem;
+}
+
+.global .map:hover {
+  transform: rotateY(50deg);
+}
+@keyframes roundMove {
+  0% {
+    transform: translate(10, 10);
+  }
+  25% {
+    transform: translate(10px, 10px);
+  }
+  50% {
+    transform: translate(9px, 10px);
+  }
+  75% {
+    transform: translate(-20px, 20px);
+  }
+  100% {
+    transform: translate(10, 10);
+  }
+}
+
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced Animated Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="calculator">
+    <div class="theme-toggle-container">
+      <label class="theme-switch" for="theme-toggle">
+        <input type="checkbox" id="theme-toggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="display">
+      <div class="expression" id="expression"></div>
+      <div class="result" id="result">0</div>
+    </div>
+    <div class="buttons">
+      <button class="btn function" data-action="clear" title="Clear">C</button>
+      <button class="btn function" data-action="delete" title="Delete">DEL</button>
+      <button class="btn function" data-action="ans" title="Last Answer">ANS</button>
+      <button class="btn operator" data-value="%" title="Modulo">%</button>
+
+      <button class="btn number" data-value="7">7</button>
+      <button class="btn number" data-value="8">8</button>
+      <button class="btn number" data-value="9">9</button>
+      <button class="btn operator" data-value="/" title="Divide">÷</button>
+
+      <button class="btn number" data-value="4">4</button>
+      <button class="btn number" data-value="5">5</button>
+      <button class="btn number" data-value="6">6</button>
+      <button class="btn operator" data-value="*" title="Multiply">×</button>
+
+      <button class="btn number" data-value="1">1</button>
+      <button class="btn number" data-value="2">2</button>
+      <button class="btn number" data-value="3">3</button>
+      <button class="btn operator" data-value="-" title="Subtract">−</button>
+
+      <button class="btn number" data-value="0">0</button>
+      <button class="btn number" data-value=".">.</button>
+      <button class="btn function" data-action="parentheses" title="Parentheses">( )</button>
+      <button class="btn operator" data-value="+" title="Add">+</button>
+
+      <button class="btn enter" data-action="calculate" title="Calculate">=</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

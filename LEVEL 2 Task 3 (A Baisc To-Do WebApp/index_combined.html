@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced To-Do App</title>
+    <style>
+        /* Center the container vertically and horizontally */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4c4d4a 0%, #f8f8fa 100%);
+            color: #dccece;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.5s, color 0.5s;
+            overflow: hidden;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #5e5b5b 0%, #4c4a4a 100%);
+            color: #cab1b1;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            background: rgb(213, 219, 211);
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 5px 12px 20px rgba(20, 20, 20, 0.3);
+            transition: background 0.5s, box-shadow 0.5s;
+            animation: fadeInScale 0.6s ease forwards;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .container {
+            background: #060000;
+            box-shadow: 0 8px 30px rgba(244, 242, 242, 0.7);
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 20px;
+            user-select: none;
+        }
+
+        body.dark-mode h1,
+        body.dark-mode h2 {
+            color: #ddd;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: calc(100% - 110px);
+            padding: 12px 15px;
+            border: 2px solid #0a0d42;
+            border-radius: 8px;
+            margin: 8px 0;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #b8cf82;
+            box-shadow: 0 0 8px #7e7e8d;
+        }
+
+        button {
+            padding: 12px 18px;
+            border: none;
+            background-color: #6b73ff;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: 600;
+            margin-left: 8px;
+            user-select: none;
+            box-shadow: 0 4px 8px rgba(107, 115, 255, 0.4);
+        }
+
+        button:hover {
+            background-color: #000dff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 13, 255, 0.6);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .task-lists {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .pending-tasks,
+        .completed-tasks {
+            flex: 1 1 45%;
+            background: #f7f7ff;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 12px rgba(107, 115, 255, 0.2);
+            transition: background 0.3s;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .pending-tasks,
+        body.dark-mode .completed-tasks {
+            background: #333;
+            box-shadow: 0 4px 12px rgba(0, 13, 255, 0.4);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #e9ecef;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            cursor: default;
+            user-select: none;
+        }
+
+        li:hover {
+            transform: scale(1.03);
+            background-color: #d0d8ff;
+            box-shadow: 0 4px 12px rgba(107, 115, 255, 0.4);
+        }
+
+        .completed {
+            background: #d4edda;
+            text-decoration: line-through;
+            color: #2f6627;
+            font-weight: 600;
+        }
+
+        .completed:hover {
+            background-color: #c3e6cb;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task..." />
+        <select id="prioritySelect">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <input type="date" id="dueDateInput" />
+        <button id="addTaskBtn">Add Task</button>
+        <button id="toggleThemeBtn">Toggle Theme</button>
+        <div class="task-lists">
+            <div class="pending-tasks">
+                <h2>Pending Tasks</h2>
+                <ul id="pendingList"></ul>
+            </div>
+            <div class="completed-tasks">
+                <h2>Completed Tasks</h2>
+                <ul id="completedList"></ul>
+            </div>
+        </div>
+        <input type="text" id="searchInput" placeholder="Search tasks..." />
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadTasks);
+        document.getElementById('addTaskBtn').addEventListener('click', addTask);
+        document.getElementById('searchInput').addEventListener('input', searchTasks);
+        document.getElementById('toggleThemeBtn').addEventListener('click', toggleTheme);
+
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.forEach(task => {
+                const taskItem = createTaskItem(task.text, task.priority, task.dueDate, task.completed);
+                if (task.completed) {
+                    document.getElementById('completedList').appendChild(taskItem);
+                } else {
+                    document.getElementById('pendingList').appendChild(taskItem);
+                }
+            });
+        }
+
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const prioritySelect = document.getElementById('prioritySelect');
+            const dueDateInput = document.getElementById('dueDateInput');
+            const taskText = taskInput.value.trim();
+            const priority = prioritySelect.value;
+            const dueDate = dueDateInput.value;
+
+            if (taskText === '') return;
+
+            const taskItem = createTaskItem(taskText, priority, dueDate, false);
+            document.getElementById('pendingList').appendChild(taskItem);
+            saveTaskToLocalStorage(taskText, priority, dueDate, false);
+            taskInput.value = '';
+            dueDateInput.value = '';
+        }
+
+        function createTaskItem(taskText, priority, dueDate, completed) {
+            const li = document.createElement('li');
+            li.textContent = `${taskText} (Priority: ${priority}, Due: ${dueDate})`;
+            if (completed) li.classList.add('completed');
+
+            const completeBtn = document.createElement('button');
+            completeBtn.textContent = 'Complete';
+            completeBtn.onclick = () => completeTask(li, taskText, priority, dueDate);
+
+            const editBtn = document.createElement('button');
+            editBtn.textContent = 'Edit';
+            editBtn.onclick = () => editTask(li, taskText, priority, dueDate);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.onclick = () => deleteTask(li, taskText);
+
+            li.appendChild(completeBtn);
+            li.appendChild(editBtn);
+            li.appendChild(deleteBtn);
+            return li;
+        }
+
+        function completeTask(taskItem, taskText, priority, dueDate) {
+            const completedList = document.getElementById('completedList');
+            completedList.appendChild(taskItem);
+            taskItem.classList.add('completed');
+            taskItem.querySelector('button').remove(); // Remove complete button
+            saveTaskToLocalStorage(taskText, priority, dueDate, true);
+        }
+
+        function editTask(taskItem, taskText, priority, dueDate) {
+            const newTaskText = prompt("Edit task:", taskText);
+            const newPriority = prompt("Edit priority (Low, Medium, High):", priority);
+            const newDueDate = prompt("Edit due date (YYYY-MM-DD):", dueDate);
+
+            if (newTaskText) {
+                taskItem.firstChild.textContent = `${newTaskText} (Priority: ${newPriority}, Due: ${newDueDate})`;
+                updateLocalStorage(taskText, newTaskText, newPriority, newDueDate);
+            }
+        }
+
+        function deleteTask(taskItem, taskText) {
+            taskItem.remove();
+            removeTaskFromLocalStorage(taskText);
+        }
+
+        function saveTaskToLocalStorage(taskText, priority, dueDate, completed) {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push({ text: taskText, priority, dueDate, completed });
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function updateLocalStorage(oldText, newText, newPriority, newDueDate) {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const taskIndex = tasks.findIndex(task => task.text === oldText);
+            if (taskIndex !== -1) {
+                tasks[taskIndex] = { text: newText, priority: newPriority, dueDate: newDueDate, completed: false };
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+        }
+
+        function removeTaskFromLocalStorage(taskText) {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const updatedTasks = tasks.filter(task => task.text !== taskText);
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        }
+
+        function searchTasks() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const pendingList = document.getElementById('pendingList');
+            const completedList = document.getElementById('completedList');
+
+            Array.from(pendingList.children).forEach(task => {
+                // Get only the text node value (exclude buttons)
+                const taskText = Array.from(task.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.textContent)
+                    .join('')
+                    .toLowerCase();
+                task.style.display = taskText.includes(searchInput) ? 'block' : 'none';
+            });
+
+            Array.from(completedList.children).forEach(task => {
+                const taskText = Array.from(task.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.textContent)
+                    .join('')
+                    .toLowerCase();
+                task.style.display = taskText.includes(searchInput) ? 'block' : 'none';
+            });
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>

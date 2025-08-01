@@ -1,0 +1,120 @@
+/* style.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: serif;
+  background: linear-gradient(135deg, #0000004a, #16213e);
+  color: #050505;
+  animation: fadeIn 1s ease-in-out;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header img {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+ 
+  animation: pulse 1s infinite;
+
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+}
+
+nav {
+  margin: 1.5rem 0;
+}
+
+nav a {
+  color: #f9fbfb;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+   border: none solid whitesmoke;
+   box-shadow: -0px -3px 3px rgb(59, 58, 58);
+   border-radius: 1000px;
+   padding: 20px;
+
+    
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: #f0f4f4;
+  left: 0;
+  bottom: -4px;
+  transition: 0.3s;
+ 
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+main {
+  text-align: center;
+  animation: slideUp 5s ease-in-out;
+}
+
+footer {
+  margin-top: auto;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+
+body {
+  background-image: url('https://wallpapers.com/images/hd/profile-picture-background-l1y44ijo20ooanql.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  margin: 0;
+
+  font-family: serif;
+
+  color: #f7f4f4;
+  animation: fadeIn 1s ease-in-out;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+

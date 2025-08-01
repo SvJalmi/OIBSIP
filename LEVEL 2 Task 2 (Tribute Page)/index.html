@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marie Curie Tribute Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-light: #939591;
+      --text-light: #1e1e1e;
+      --accent-light: #090d0b;
+      --bg-dark: #121212;
+      --text-dark: #a19c9c;
+      --accent-dark: #f7faf7;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.light-mode {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: radial-gradient(circle, #979595, #1e1e1e);
+      position: relative;
+      perspective: 1000px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 60px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .hero p {
+      font-size: 24px;
+      margin-top: 10px;
+      font-weight: 300; /* Lighter font weight for a more elegant look */
+    }
+
+    .glow-ring {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border: px solid var(--accent-dark);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
+      animation: rotate 5s linear infinite;
+    }
+
+    .quote-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 10%;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .quote-section blockquote {
+      font-size: 24px;
+      line-height: 1.6;
+      color: var(--accent-dark);
+      animation: slideIn 1s ease forwards;
+      max-width: 600px;
+      margin: 0 20px; /* Added margin for spacing */
+      font-weight: 400; /* Normal weight for a clean look */
+    }
+
+    .portrait {
+      width: 300px;
+      height: 300px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(106, 114, 112, 0.4);
+      transition: transform 0.5s;
+      animation: fadeIn 1s ease-in-out;
+      /* margin: 20px; Removed margin for flex gap spacing */
+    }
+
+    .centered-images {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      height: calc(100vh - 240px); /* Adjust height to center vertically considering padding */
+    }
+
+    .portrait:hover {
+      transform: scale(1.05) rotateY(10deg);
+    }
+
+    .bio, .timeline-section {
+      padding: 60px 10%;
+    }
+
+    .bio h2, .timeline-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .bio p {
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .timeline {
+      position: relative;
+      margin-left: 30px;
+      border-left: 3px solid var(--accent-dark);
+      padding-left: 20px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 50px;
+      opacity: 0;
+      animation: slideInLeft 1s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 0;
+      left: -20px;
+      width: 20px;
+      height: 20px;
+      background-color: var(--accent-dark);
+      border-radius: 50%;
+      border: 2px solid #01040f;
+    }
+
+    .timeline-date {
+      font-weight: bold;
+      font-size: 18px;
+      color: var(--accent-dark);
+      margin-bottom: 10px;
+    }
+
+    .timeline-content {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      transform: perspective(600px) rotateY(3deg);
+      transition: transform 0.3s ease;
+    }
+
+    body.light-mode .timeline-content {
+      background: #ede3e3;
+    }
+
+    .timeline-content:hover {
+      transform: perspective(600px) rotateY(0deg) scale(1.02);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      background: #0a0a0a;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--accent-dark);
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 1000;
+    }
+
+    audio {
+      display: block;
+      margin: 20px auto;
+      width: 80%; /* Make audio player responsive */
+    }
+
+    @keyframes rotate {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideInLeft {
+      0% { transform: translateX(-50px); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .quote-section {
+        flex-direction: column;
+      }
+
+      .portrait {
+        width: 80%;
+      }
+
+      .bio, .timeline-section {
+        padding: 30px 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-btn" onclick="toggleMode()">Toggle Dark Mode</button>
+  <div class="hero">
+    <h1>Marie Curie</h1>
+    <p>1867 – 1934</p>
+    <div class="glow-ring"></div>
+  </div>
+  <section class="quote-section">
+    <blockquote>
+      "Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less."
+    </blockquote>
+    <img src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/1-who-is-marie-curie-zandra-sneed-dawkins.jpg" alt="Marie Curie" class="portrait" />
+  </section>
+  <section class="bio">
+    <h2>Biography</h2>
+    <p>
+      Marie Curie was a Polish-born physicist and chemist, famous for her pioneering research on radioactivity. She was the first woman to win a Nobel Prize and the only person to win Nobel Prizes in two different scientific fields—Physics and Chemistry.
+    </p>
+    <p>
+      Curie discovered the elements polonium and radium, and she developed techniques for isolating radioactive isotopes. She also conducted important work during World War I, developing mobile radiography units to treat wounded soldiers. Her legacy inspires scientists around the world.
+    </p>
+    <div class="centered-images">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.eUlndkANrEPIJwdCWj6HOwHaHa?r=0&w=1024&h=1024&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Marie Curie in Laboratory" class="portrait" />
+      <img src="https://tse4.mm.bing.net/th/id/OIP.07g1m4gL9TL39THjz_b_JgHaID?r=0&w=883&h=960&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Marie Curie with her Nobel Prize" class="portrait" />
+    </div>
+  </section>
+  <section class="timeline-section">
+    <h2>Timeline of Achievements</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">1891</div>
+        <div class="timeline-content">
+          <h3>Moved to Paris</h3>
+          <p>Moved to Paris to study physics and mathematics at the Sorbonne.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">1898</div>
+        <div class="timeline-content">
+          <h3>Discovery of Polonium & Radium</h3>
+          <p>Marie and Pierre Curie discovered the radioactive elements polonium and radium.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">1903</div>
+        <div class="timeline-content">
+          <h3>Nobel Prize in Physics</h3>
+          <p>Won the Nobel Prize in Physics with Pierre Curie and Henri Becquerel.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">1911</div>
+        <div class="timeline-content">
+          <h3>Nobel Prize in Chemistry</h3>
+          <p>Awarded her second Nobel Prize for the discovery of radium and polonium.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">1914–1918</div>
+        <div class="timeline-content">
+          <h3>World War I</h3>
+          <p>Developed mobile X-ray units to aid battlefield surgery during the war.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">1934</div>
+        <div class="timeline-content">
+          <h3>Death & Legacy</h3>
+          <p>Passed away from aplastic anemia. Left a legacy that changed science forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2 style="text-align:center; margin-top: 40px;">Audio Narration</h2>
+    <audio controls>
+      <source src="https://www.example.com/path/to/your-audio-file.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </section>
+  <footer>
+    <p> ❤ Marie Curie ❤ </p>
+  </footer>
+  <script>
+    const items = document.querySelectorAll('.timeline-item');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.2 });
+
+    items.forEach(item => {
+      observer.observe(item);
+    });
+
+    function toggleMode() {
+      document.body.classList.toggle('light-mode');
+    }
+  </script>
+</body>
+</html>
